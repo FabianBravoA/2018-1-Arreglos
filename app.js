@@ -128,12 +128,20 @@ console.log("Datos > "+JSON.stringify(miLista));
   );
  
   const animalesString = listaAnimales.reduce(
+    /*
+     * EN LA PRIMERA ITERACIÓN : 
+     * elementoPrevio es el elemento 0,
+     * elemento es el elemento 1
+     * 
+     * EN LA SEGUNDA Y DEMÁS ITERACIONES : 
+     * elementoPrevio es lo que retornó la anterior iteración
+     * elemento es el elemento segundo o tercero o index o como le llamen
+     */
     (elementoPrevio, elemento)=>{
-      return elementoPrevio + " "+ elemento;
+      return elementoPrevio + ", "+ elemento;
     }
-  );
+  );// Doge, Cate, Contralorito .........
   console.log("Animales string > "+animalesString);
-
 
   const nombresLargos = listaAnimales.filter(
     (nombres) => {
@@ -141,8 +149,60 @@ console.log("Datos > "+JSON.stringify(miLista));
     }
   );
 
-  const nombreSeries = series.map (
-    (serie) => {
-      return serie.nombre + " "+ serie.estilo;
+  const nombreSeries = series.map(serie => serie.nombre + " "+ serie.estilo);
+
+  const titulosSeries = series.reduce(
+    (acumulador, serie)=>{
+      if(typeof(acumulador) != "string"){
+        acumulador = acumulador.nombre;
+      }
+      return acumulador + ", " + serie.nombre;
     }
-  )
+  );
+  //Retorna el último acumulador de la última iteración
+
+  const laboratoria = [
+    {
+      nombre : "Valentina",
+      puntaje : 200
+    },
+    {
+      nombre : "Jessica",
+      puntaje : 199
+    },
+    {
+      nombre : "Mia",
+      puntaje : 200
+    },
+    {
+      nombre : "Denisse",
+      puntaje : 120
+    },
+    {
+      nombre: "Mile",
+      puntaje: 190
+    } 
+  ];
+
+  const promedio = laboratoria.reduce( //Para obtener un resultado a partir de un arreglo
+    (acumulador, estudiante)=>{
+      if(isNaN(acumulador)){
+        acumulador = acumulador.puntaje;
+      }
+
+      return acumulador + estudiante.puntaje;
+    }
+  ) / laboratoria.length;
+  console.log("Promedio laboratoria : "+promedio);
+ 
+//    input -> [] -> output
+
+//Puedo verla desde cualquier parte del código  
+function miFuncionSimple(parametro){//Firma o contrato
+  return 4;//lo que retorna
+}
+
+//Usado principalmente para funciones anónimas
+var funcionAnonima = (parametro1, parametro2) => {
+  return 4;
+}
